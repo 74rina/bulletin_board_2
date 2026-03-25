@@ -141,22 +141,15 @@ function App() {
   return (
     <div className="app">
       <header className="hero">
-        <div className="hero-content">
-          <p className="eyebrow">匿名掲示板</p>
-          <h1>話したいことを、気軽に投稿しよう。</h1>
-          <p className="lead">
-            だれでも匿名で投稿・コメントできる、ライトなコミュニティ空間。
-          </p>
-        </div>
         <div className="hero-panel">
-          <form className="card" onSubmit={handleCreatePost}>
+          <form className="card post-form" onSubmit={handleCreatePost}>
             <h2>新規投稿</h2>
             <label>
               名前
               <input
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="例: 匿名さん"
+                placeholder="骨なしチキン"
                 required
               />
             </label>
@@ -180,6 +173,13 @@ function App() {
             </label>
             <button type="submit">投稿する</button>
           </form>
+        </div>
+        <div className="hero-content">
+          <p className="eyebrow">2026 KCS Web班</p>
+          <h1>
+            掲示板
+            <span>KCS :: Keio Computer Society</span>
+          </h1>
         </div>
       </header>
 
