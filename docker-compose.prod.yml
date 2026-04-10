@@ -32,9 +32,8 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      args:
-        VITE_API_BASE_URL: /api
+      context: .
+      dockerfile: ./infra/nginx/Dockerfile
     restart: unless-stopped
     depends_on:
       - backend
