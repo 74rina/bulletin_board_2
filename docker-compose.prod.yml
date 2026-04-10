@@ -38,6 +38,8 @@ services:
     build:
       context: .
       dockerfile: ./infra/nginx/Dockerfile
+      args:
+        VITE_API_BASE_URL: /api
     restart: unless-stopped
     depends_on:
       - backend
