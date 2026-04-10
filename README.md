@@ -83,6 +83,25 @@ docker compose exec -T backend alembic downgrade -1
 - DB 接続は `DATABASE_URL` または `DB_HOST/DB_PORT/DB_USER/DB_PASSWORD/DB_NAME` を参照します。
 - CORS は `http://localhost:5173` と `http://localhost:5174` を許可しています。
 
+## HTTPS（本番 / Let's Encrypt）
+
+ドメイン: `honenashi.dev`
+
+### 初回証明書取得
+
+```
+docker compose -f docker-compose.prod.yml up -d reverse-proxy
+docker compose -f docker-compose.prod.yml run --rm certbot certonly \
+  --webroot -w /var/www/certbot \
+  -d honenashi.dev \
+  --email admin@honenashi.dev --agree-tos --no-eff-email
+docker compose -f docker-compose.prod.yml up -d
+```
+
+### 自動更新
+
+`certbot` サービスが 12 時間ごとに更新チェックします。
+
 ## トラブルシューティング
 
 ### 5173 が別アプリで使われている
