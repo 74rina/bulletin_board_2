@@ -13,6 +13,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app_net
 
   backend:
     build:
@@ -29,6 +31,8 @@ services:
         condition: service_healthy
     expose:
       - "8000"
+    networks:
+      - app_net
 
   frontend:
     build:
@@ -39,6 +43,8 @@ services:
       - backend
     expose:
       - "80"
+    networks:
+      - app_net
 
   reverse-proxy:
     image: nginx:stable-alpine
@@ -53,6 +59,8 @@ services:
       - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - letsencrypt:/etc/letsencrypt
       - certbot-webroot:/var/www/certbot
+    networks:
+      - app_net
 
   certbot:
     image: certbot/certbot:latest
@@ -64,8 +72,13 @@ services:
       certbot renew --webroot -w /var/www/certbot;
       sleep 12h & wait $${!};
       done"
+    networks:
+      - app_net
 
 volumes:
   db_data:
   letsencrypt:
   certbot-webroot:
+
+networks:
+  app_net:
